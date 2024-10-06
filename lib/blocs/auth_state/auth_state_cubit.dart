@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthStateCubit extends Cubit<User?> {
   AuthStateCubit() : super(FirebaseAuth.instance.currentUser) {
-    FirebaseAuth.instance.authStateChanges().listen(
-          (user) => emit(user),
-        );
+    FirebaseAuth.instance.authStateChanges().listen(emit);
   }
 
   Future<void> signOut() async {

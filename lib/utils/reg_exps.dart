@@ -8,8 +8,8 @@ RegExp passwordRegExp = RegExp(
 
 RegExp lengthRegExp = RegExp(r'^.{6,}$');
 
-RegExp lowercaseRegExp = RegExp(r'[a-z]');
+RegExp lowercaseRegExp = RegExp('[a-z]');
 
-RegExp uppercaseRegExp = RegExp(r'[A-Z]');
+RegExp uppercaseRegExp = RegExp('[A-Z]');
 
 RegExp digitRegExp = RegExp(r'\d');

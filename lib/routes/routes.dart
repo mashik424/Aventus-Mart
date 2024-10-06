@@ -9,7 +9,8 @@ const home = 'home';
 const signIn = 'sign_in';
 const createAccount = 'create_account';
 
-MaterialPageRoute? onGenerateRoute(settings) => MaterialPageRoute(
+MaterialPageRoute<dynamic>? onGenerateRoute(RouteSettings settings) =>
+    MaterialPageRoute(
       builder: (context) {
         switch (settings.name) {
           case root:

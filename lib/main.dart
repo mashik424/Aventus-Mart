@@ -1,13 +1,13 @@
 import 'package:aventus_mart/blocs/auth_state/auth_state_cubit.dart';
 import 'package:aventus_mart/blocs/create_account/create_account_bloc.dart';
 import 'package:aventus_mart/blocs/sign_in/sign_in_bloc.dart';
+import 'package:aventus_mart/di/injection_container.dart' as di;
 import 'package:aventus_mart/firebase_options.dart';
 import 'package:aventus_mart/repositories/auth_repository.dart';
 import 'package:aventus_mart/routes/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:aventus_mart/di/injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

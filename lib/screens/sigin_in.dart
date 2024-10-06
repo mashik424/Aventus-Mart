@@ -1,12 +1,12 @@
 import 'package:aventus_mart/blocs/auth_state/auth_state_cubit.dart';
 import 'package:aventus_mart/blocs/sign_in/sign_in_bloc.dart';
+import 'package:aventus_mart/routes/routes.dart' as routes;
 import 'package:aventus_mart/utils/context_ext.dart';
+import 'package:aventus_mart/utils/reg_exps.dart' as reg_exps;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:aventus_mart/utils/reg_exps.dart' as reg_exps;
-import 'package:aventus_mart/routes/routes.dart' as routes;
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -56,7 +56,7 @@ class _SignInScreenState extends State<SignInScreen> {
       ],
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16),
           child: Form(
             key: _formKey,
             child: Column(
@@ -141,7 +141,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     );
                   },
-                )
+                ),
               ],
             ),
           ),

@@ -33,11 +33,15 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       } else if (e.code == 'wrong-password') {
         emit(const WrongPassword());
       } else if (e.code == 'invalid-credential') {
-        emit(SignInFailed((Failure(
-          'The password or email you entered is invalid',
-        ))));
+        emit(
+          SignInFailed(
+            Failure(
+              'The password or email you entered is invalid',
+            ),
+          ),
+        );
       } else {
-        emit(SignInFailed((Failure(e.message ?? 'Unknown Error'))));
+        emit(SignInFailed(Failure(e.message ?? 'Unknown Error')));
       }
     } catch (e) {
       emit(SignInFailed(Failure(e.toString())));

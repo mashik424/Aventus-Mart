@@ -1,9 +1,9 @@
 import 'package:aventus_mart/blocs/create_account/create_account_bloc.dart';
 import 'package:aventus_mart/utils/context_ext.dart';
+import 'package:aventus_mart/utils/reg_exps.dart' as reg_exps;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:aventus_mart/utils/reg_exps.dart' as reg_exps;
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({super.key});
@@ -35,7 +35,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       builder: (context, state) {
         return Scaffold(
           body: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16),
             child: Form(
               key: _formKey,
               child: Column(

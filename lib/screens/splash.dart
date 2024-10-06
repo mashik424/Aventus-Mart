@@ -1,7 +1,7 @@
 import 'package:aventus_mart/blocs/auth_state/auth_state_cubit.dart';
+import 'package:aventus_mart/routes/routes.dart' as routes;
 import 'package:aventus_mart/utils/context_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:aventus_mart/routes/routes.dart' as routes;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashScreen extends StatelessWidget {

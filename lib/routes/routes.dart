@@ -1,5 +1,5 @@
 import 'package:aventus_mart/screens/create_account.dart';
-import 'package:aventus_mart/screens/home.dart';
+import 'package:aventus_mart/screens/home/home.dart';
 import 'package:aventus_mart/screens/sigin_in.dart';
 import 'package:aventus_mart/screens/splash.dart';
 import 'package:flutter/material.dart';

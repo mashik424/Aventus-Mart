@@ -1,4 +1,4 @@
-package com.aventus.mart
+package com.aventus.shop
 
 import io.flutter.embedding.android.FlutterActivity
 

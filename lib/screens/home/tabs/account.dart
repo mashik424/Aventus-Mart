@@ -18,6 +18,12 @@ class AccountTab extends StatelessWidget {
             return Text(state?.email ?? '');
           },
         ),
+        actions: [
+          TextButton(
+            onPressed: context.read<AuthStateCubit>().signOut,
+            child: const Text('Sign Out'),
+          ),
+        ],
       ),
       body: BlocBuilder<OrdersFetchBloc, OrdersFetchState>(
         builder: (context, state) {

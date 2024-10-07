@@ -4,12 +4,76 @@ import 'package:aventus_mart/blocs/order_create/order_create_bloc.dart';
 import 'package:aventus_mart/models/product_entry/product_entry.dart';
 import 'package:aventus_mart/utils/context_ext.dart';
 import 'package:aventus_mart/widgets/product_item.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-class CartTab extends StatelessWidget {
+class CartTab extends StatefulWidget {
   const CartTab({super.key});
+
+  @override
+  State<CartTab> createState() => _CartTabState();
+}
+
+class _CartTabState extends State<CartTab> {
+  final _razorpay = Razorpay();
+  final List<ProductEntry> _cart = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _razorpay
+      ..on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess)
+      ..on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError)
+      ..on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    context.showSnackBar(
+      message: 'Payment success',
+      mode: BannerMode.success,
+    );
+    context.read<OrderCreateBloc>().add(
+          CreateOrder(
+            productIds:
+                _cart.map((item) => item.product.id.toString()).toList(),
+            paidAmount: _cart.payable,
+            total: _cart.total,
+            totalDiscount: _cart.totalDiscount,
+          ),
+        );
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    context.showSnackBar(
+      message: 'Payment failed',
+      mode: BannerMode.error,
+    );
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    // Do something when an external wallet was selected
+  }
+
+  void _makePayment() {
+    if (_cart.isEmpty) {
+      context.showSnackBar(message: 'Cart is empty', mode: BannerMode.error);
+      return;
+    }
+    final options = {
+      'key': '<YOUR_KEY_HERE>',
+      'amount': _cart.payable,
+      'name': 'Aventus Mart',
+      'description': '',
+      'prefill': {
+        'email': FirebaseAuth.instance.currentUser?.email ?? '',
+      }
+    };
+
+    _razorpay.open(options);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +94,13 @@ class CartTab extends StatelessWidget {
           message: 'Placing order...',
         ),
       ),
-      child: BlocBuilder<CartFetchBloc, CartFetchState>(
+      child: BlocConsumer<CartFetchBloc, CartFetchState>(
+        listener: (context, state) => state.maybeWhen(
+          orElse: _cart.clear,
+          success: (cart) => _cart
+            ..clear()
+            ..addAll(cart),
+        ),
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(title: const Text('Cart')),
@@ -137,6 +207,7 @@ class CartTab extends StatelessWidget {
                         const Gap(8),
                         ElevatedButton(
                           onPressed: () {
+                            // _makePayment(cart.payable);
                             context.read<OrderCreateBloc>().add(
                                   CreateOrder(
                                     productIds: cart

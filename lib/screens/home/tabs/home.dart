@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:aventus_mart/blocs/auth_state/auth_state_cubit.dart';
 import 'package:aventus_mart/blocs/fetch_products/fetch_products_bloc.dart';
 import 'package:aventus_mart/blocs/wishlist_add/wishlist_add_bloc.dart';
 import 'package:aventus_mart/blocs/wishlist_remove/wishlist_remove_bloc.dart';
@@ -107,12 +106,6 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Aventus Mart'),
-          actions: [
-            TextButton(
-              onPressed: context.read<AuthStateCubit>().signOut,
-              child: const Text('Sign Out'),
-            ),
-          ],
         ),
         body: Column(
           children: [

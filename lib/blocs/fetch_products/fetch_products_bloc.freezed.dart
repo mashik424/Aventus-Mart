@@ -17,20 +17,24 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$FetchProductsEvent {
   int get perPage => throw _privateConstructorUsedError;
+  String get searchTerm => throw _privateConstructorUsedError;
   int? get lastItemId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int perPage, int? lastItemId) fetchProducts,
+    required TResult Function(int perPage, String searchTerm, int? lastItemId)
+        fetchProducts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int perPage, int? lastItemId)? fetchProducts,
+    TResult? Function(int perPage, String searchTerm, int? lastItemId)?
+        fetchProducts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int perPage, int? lastItemId)? fetchProducts,
+    TResult Function(int perPage, String searchTerm, int? lastItemId)?
+        fetchProducts,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -64,7 +68,7 @@ abstract class $FetchProductsEventCopyWith<$Res> {
           FetchProductsEvent value, $Res Function(FetchProductsEvent) then) =
       _$FetchProductsEventCopyWithImpl<$Res, FetchProductsEvent>;
   @useResult
-  $Res call({int perPage, int? lastItemId});
+  $Res call({int perPage, String searchTerm, int? lastItemId});
 }
 
 /// @nodoc
@@ -83,6 +87,7 @@ class _$FetchProductsEventCopyWithImpl<$Res, $Val extends FetchProductsEvent>
   @override
   $Res call({
     Object? perPage = null,
+    Object? searchTerm = null,
     Object? lastItemId = freezed,
   }) {
     return _then(_value.copyWith(
@@ -90,6 +95,10 @@ class _$FetchProductsEventCopyWithImpl<$Res, $Val extends FetchProductsEvent>
           ? _value.perPage
           : perPage // ignore: cast_nullable_to_non_nullable
               as int,
+      searchTerm: null == searchTerm
+          ? _value.searchTerm
+          : searchTerm // ignore: cast_nullable_to_non_nullable
+              as String,
       lastItemId: freezed == lastItemId
           ? _value.lastItemId
           : lastItemId // ignore: cast_nullable_to_non_nullable
@@ -106,7 +115,7 @@ abstract class _$$FetchProductsImplCopyWith<$Res>
       __$$FetchProductsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int perPage, int? lastItemId});
+  $Res call({int perPage, String searchTerm, int? lastItemId});
 }
 
 /// @nodoc
@@ -123,6 +132,7 @@ class __$$FetchProductsImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? perPage = null,
+    Object? searchTerm = null,
     Object? lastItemId = freezed,
   }) {
     return _then(_$FetchProductsImpl(
@@ -130,6 +140,10 @@ class __$$FetchProductsImplCopyWithImpl<$Res>
           ? _value.perPage
           : perPage // ignore: cast_nullable_to_non_nullable
               as int,
+      searchTerm: null == searchTerm
+          ? _value.searchTerm
+          : searchTerm // ignore: cast_nullable_to_non_nullable
+              as String,
       lastItemId: freezed == lastItemId
           ? _value.lastItemId
           : lastItemId // ignore: cast_nullable_to_non_nullable
@@ -141,16 +155,19 @@ class __$$FetchProductsImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$FetchProductsImpl implements FetchProducts {
-  const _$FetchProductsImpl({required this.perPage, this.lastItemId});
+  const _$FetchProductsImpl(
+      {required this.perPage, required this.searchTerm, this.lastItemId});
 
   @override
   final int perPage;
+  @override
+  final String searchTerm;
   @override
   final int? lastItemId;
 
   @override
   String toString() {
-    return 'FetchProductsEvent.fetchProducts(perPage: $perPage, lastItemId: $lastItemId)';
+    return 'FetchProductsEvent.fetchProducts(perPage: $perPage, searchTerm: $searchTerm, lastItemId: $lastItemId)';
   }
 
   @override
@@ -159,12 +176,14 @@ class _$FetchProductsImpl implements FetchProducts {
         (other.runtimeType == runtimeType &&
             other is _$FetchProductsImpl &&
             (identical(other.perPage, perPage) || other.perPage == perPage) &&
+            (identical(other.searchTerm, searchTerm) ||
+                other.searchTerm == searchTerm) &&
             (identical(other.lastItemId, lastItemId) ||
                 other.lastItemId == lastItemId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, perPage, lastItemId);
+  int get hashCode => Object.hash(runtimeType, perPage, searchTerm, lastItemId);
 
   /// Create a copy of FetchProductsEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -177,27 +196,30 @@ class _$FetchProductsImpl implements FetchProducts {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int perPage, int? lastItemId) fetchProducts,
+    required TResult Function(int perPage, String searchTerm, int? lastItemId)
+        fetchProducts,
   }) {
-    return fetchProducts(perPage, lastItemId);
+    return fetchProducts(perPage, searchTerm, lastItemId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int perPage, int? lastItemId)? fetchProducts,
+    TResult? Function(int perPage, String searchTerm, int? lastItemId)?
+        fetchProducts,
   }) {
-    return fetchProducts?.call(perPage, lastItemId);
+    return fetchProducts?.call(perPage, searchTerm, lastItemId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int perPage, int? lastItemId)? fetchProducts,
+    TResult Function(int perPage, String searchTerm, int? lastItemId)?
+        fetchProducts,
     required TResult orElse(),
   }) {
     if (fetchProducts != null) {
-      return fetchProducts(perPage, lastItemId);
+      return fetchProducts(perPage, searchTerm, lastItemId);
     }
     return orElse();
   }
@@ -234,10 +256,13 @@ class _$FetchProductsImpl implements FetchProducts {
 abstract class FetchProducts implements FetchProductsEvent {
   const factory FetchProducts(
       {required final int perPage,
+      required final String searchTerm,
       final int? lastItemId}) = _$FetchProductsImpl;
 
   @override
   int get perPage;
+  @override
+  String get searchTerm;
   @override
   int? get lastItemId;
 
@@ -254,7 +279,7 @@ mixin _$FetchProductsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(bool refresh) loading,
     required TResult Function(List<Product> products) success,
     required TResult Function(Failure failure) failure,
   }) =>
@@ -262,7 +287,7 @@ mixin _$FetchProductsState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(bool refresh)? loading,
     TResult? Function(List<Product> products)? success,
     TResult? Function(Failure failure)? failure,
   }) =>
@@ -270,7 +295,7 @@ mixin _$FetchProductsState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(bool refresh)? loading,
     TResult Function(List<Product> products)? success,
     TResult Function(Failure failure)? failure,
     required TResult orElse(),
@@ -367,7 +392,7 @@ class _$FetchProductsInitialImpl implements FetchProductsInitial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(bool refresh) loading,
     required TResult Function(List<Product> products) success,
     required TResult Function(Failure failure) failure,
   }) {
@@ -378,7 +403,7 @@ class _$FetchProductsInitialImpl implements FetchProductsInitial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(bool refresh)? loading,
     TResult? Function(List<Product> products)? success,
     TResult? Function(Failure failure)? failure,
   }) {
@@ -389,7 +414,7 @@ class _$FetchProductsInitialImpl implements FetchProductsInitial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(bool refresh)? loading,
     TResult Function(List<Product> products)? success,
     TResult Function(Failure failure)? failure,
     required TResult orElse(),
@@ -447,6 +472,8 @@ abstract class _$$FetchingProductsImplCopyWith<$Res> {
   factory _$$FetchingProductsImplCopyWith(_$FetchingProductsImpl value,
           $Res Function(_$FetchingProductsImpl) then) =
       __$$FetchingProductsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool refresh});
 }
 
 /// @nodoc
@@ -459,60 +486,86 @@ class __$$FetchingProductsImplCopyWithImpl<$Res>
 
   /// Create a copy of FetchProductsState
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? refresh = null,
+  }) {
+    return _then(_$FetchingProductsImpl(
+      refresh: null == refresh
+          ? _value.refresh
+          : refresh // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$FetchingProductsImpl implements FetchingProducts {
-  const _$FetchingProductsImpl();
+  const _$FetchingProductsImpl({required this.refresh});
+
+  @override
+  final bool refresh;
 
   @override
   String toString() {
-    return 'FetchProductsState.loading()';
+    return 'FetchProductsState.loading(refresh: $refresh)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$FetchingProductsImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$FetchingProductsImpl &&
+            (identical(other.refresh, refresh) || other.refresh == refresh));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, refresh);
+
+  /// Create a copy of FetchProductsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FetchingProductsImplCopyWith<_$FetchingProductsImpl> get copyWith =>
+      __$$FetchingProductsImplCopyWithImpl<_$FetchingProductsImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(bool refresh) loading,
     required TResult Function(List<Product> products) success,
     required TResult Function(Failure failure) failure,
   }) {
-    return loading();
+    return loading(refresh);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(bool refresh)? loading,
     TResult? Function(List<Product> products)? success,
     TResult? Function(Failure failure)? failure,
   }) {
-    return loading?.call();
+    return loading?.call(refresh);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(bool refresh)? loading,
     TResult Function(List<Product> products)? success,
     TResult Function(Failure failure)? failure,
     required TResult orElse(),
   }) {
     if (loading != null) {
-      return loading();
+      return loading(refresh);
     }
     return orElse();
   }
@@ -556,7 +609,16 @@ class _$FetchingProductsImpl implements FetchingProducts {
 }
 
 abstract class FetchingProducts implements FetchProductsState {
-  const factory FetchingProducts() = _$FetchingProductsImpl;
+  const factory FetchingProducts({required final bool refresh}) =
+      _$FetchingProductsImpl;
+
+  bool get refresh;
+
+  /// Create a copy of FetchProductsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$FetchingProductsImplCopyWith<_$FetchingProductsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -636,7 +698,7 @@ class _$ProductsFetchedImpl implements ProductsFetched {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(bool refresh) loading,
     required TResult Function(List<Product> products) success,
     required TResult Function(Failure failure) failure,
   }) {
@@ -647,7 +709,7 @@ class _$ProductsFetchedImpl implements ProductsFetched {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(bool refresh)? loading,
     TResult? Function(List<Product> products)? success,
     TResult? Function(Failure failure)? failure,
   }) {
@@ -658,7 +720,7 @@ class _$ProductsFetchedImpl implements ProductsFetched {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(bool refresh)? loading,
     TResult Function(List<Product> products)? success,
     TResult Function(Failure failure)? failure,
     required TResult orElse(),
@@ -790,7 +852,7 @@ class _$FetchProductsFailedImpl implements FetchProductsFailed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(bool refresh) loading,
     required TResult Function(List<Product> products) success,
     required TResult Function(Failure failure) failure,
   }) {
@@ -801,7 +863,7 @@ class _$FetchProductsFailedImpl implements FetchProductsFailed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(bool refresh)? loading,
     TResult? Function(List<Product> products)? success,
     TResult? Function(Failure failure)? failure,
   }) {
@@ -812,7 +874,7 @@ class _$FetchProductsFailedImpl implements FetchProductsFailed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(bool refresh)? loading,
     TResult Function(List<Product> products)? success,
     TResult Function(Failure failure)? failure,
     required TResult orElse(),

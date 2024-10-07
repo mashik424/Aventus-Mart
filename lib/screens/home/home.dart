@@ -1,4 +1,5 @@
 import 'package:aventus_mart/blocs/auth_state/auth_state_cubit.dart';
+import 'package:aventus_mart/blocs/cart_fetch/cart_fetch_bloc.dart';
 import 'package:aventus_mart/blocs/wishlist_fetch/wishlist_fetch_bloc.dart';
 import 'package:aventus_mart/routes/routes.dart' as routes;
 import 'package:aventus_mart/screens/home/tabs/account.dart';
@@ -24,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     context.read<WishlistFetchBloc>().add(const FetchWishlist());
+    context.read<CartFetchBloc>().add(const FetchCart());
     super.initState();
   }
 

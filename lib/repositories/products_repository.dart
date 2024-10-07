@@ -26,6 +26,38 @@ class ProductsRepository {
     return snapshot.docs.map((doc) => Product.fromJson(doc.data())).toList();
   }
 
+  Future<List<Product>> searchProducts({
+    required int perPage,
+    required String searchTerm,
+    int? lastItemId,
+  }) async {
+    QuerySnapshot<Map<String, dynamic>> snapshot;
+
+    if (lastItemId == null) {
+      snapshot = await _collection
+          .orderBy('title')
+          .where('title', isGreaterThanOrEqualTo: searchTerm)
+          .where('title', isLessThan: '${searchTerm}z')
+          .limit(perPage)
+          .get();
+    } else {
+      final lastVisible =
+          (await _collection.where('id', isEqualTo: lastItemId).limit(1).get())
+              .docs
+              .first;
+
+      snapshot = await _collection
+          .orderBy('title')
+          .where('title', isGreaterThanOrEqualTo: searchTerm)
+          .where('title', isLessThan: '${searchTerm}z')
+          .startAfterDocument(lastVisible)
+          .limit(perPage)
+          .get();
+    }
+
+    return snapshot.docs.map((doc) => Product.fromJson(doc.data())).toList();
+  }
+
   // Product _fromFirestore(
   //   DocumentSnapshot<Map<String, dynamic>> snapshot,
   //   SnapshotOptions? options,

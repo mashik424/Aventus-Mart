@@ -20,12 +20,21 @@ class FetchProductsBloc extends Bloc<FetchProductsEvent, FetchProductsState> {
     FetchProducts event,
     Emitter<FetchProductsState> emit,
   ) async {
-    emit(const FetchingProducts());
+    emit(FetchingProducts(refresh: event.lastItemId == null));
     try {
-      final list = await _productsRepository.fetchAllProducts(
-        perPage: event.perPage,
-        lastItemId: event.lastItemId,
-      );
+      List<Product> list;
+      if (event.searchTerm.isEmpty) {
+        list = await _productsRepository.fetchAllProducts(
+          perPage: event.perPage,
+          lastItemId: event.lastItemId,
+        );
+      } else {
+        list = await _productsRepository.searchProducts(
+          searchTerm: event.searchTerm,
+          perPage: event.perPage,
+          lastItemId: event.lastItemId,
+        );
+      }
       emit(ProductsFetched(list));
     } catch (e) {
       emit(FetchProductsFailed(Failure(e.toString())));

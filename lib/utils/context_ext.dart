@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 enum BannerMode { success, error, info }
 
 extension ContextExt on BuildContext {
-  Future<void> pushNamed(String routeName) => Navigator.of(this).pushNamed(
+  Future<void> pushNamed(
+    String routeName, {
+    Object? arguments,
+  }) =>
+      Navigator.of(this).pushNamed(
         routeName,
+        arguments: arguments,
       );
 
   Future<void> pushReplacementNamed(String routeName) =>
@@ -17,6 +22,8 @@ extension ContextExt on BuildContext {
   TextTheme get textTheme => theme.textTheme;
 
   ColorScheme get colorScheme => theme.colorScheme;
+
+  Size get screenSize => MediaQuery.of(this).size;
 
   Future<void> showSnackBar({
     required String message,

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:aventus_mart/blocs/auth_state/auth_state_cubit.dart';
 import 'package:aventus_mart/blocs/fetch_products/fetch_products_bloc.dart';
 import 'package:aventus_mart/models/product/product.dart';
@@ -18,17 +20,31 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
     firstPageKey: null,
   );
 
+  Timer? _debounce;
+  final _textController = TextEditingController();
+
   @override
   void initState() {
-    _pagingController.addPageRequestListener((pageKey) {
+    _pagingController.addPageRequestListener(_loadProductPages);
+    super.initState();
+  }
+
+  void _loadProductPages(
+    int? pageKey, {
+    String? searchTerm,
+  }) =>
       context.read<FetchProductsBloc>().add(
             FetchProducts(
               lastItemId: pageKey,
               perPage: 20,
+              searchTerm: _textController.text,
             ),
           );
-    });
-    super.initState();
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    super.dispose();
   }
 
   @override
@@ -61,18 +77,40 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
             ),
           ],
         ),
-        body: PagedGridView(
-          pagingController: _pagingController,
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          builderDelegate: PagedChildBuilderDelegate<Product>(
-            itemBuilder: (context, item, index) => ProductItem(product: item),
-          ),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 1 / 1.5,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
-          ),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: TextField(
+                controller: _textController,
+                decoration: const InputDecoration(hintText: 'Search products'),
+                onChanged: (value) {
+                  if (_debounce?.isActive ?? false) _debounce?.cancel();
+
+                  _debounce = Timer(
+                    const Duration(milliseconds: 500),
+                    _pagingController.refresh,
+                  );
+                },
+              ),
+            ),
+            Expanded(
+              child: PagedGridView(
+                pagingController: _pagingController,
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                builderDelegate: PagedChildBuilderDelegate<Product>(
+                  itemBuilder: (context, item, index) =>
+                      ProductItem(product: item),
+                ),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 1 / 1.5,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

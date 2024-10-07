@@ -26,6 +26,9 @@ class _SignInScreenState extends State<SignInScreen> {
         BlocListener<AuthStateCubit, User?>(
           listener: (context, state) {
             if (state != null) {
+              if (Navigator.canPop(context)) {
+                Navigator.pop(context);
+              }
               context.pushReplacementNamed(routes.home);
             }
           },

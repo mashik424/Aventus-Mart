@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:aventus_mart/models/failure/failure.dart';
 import 'package:aventus_mart/models/product/product.dart';
-import 'package:aventus_mart/models/wishlist_entry/wishlist_entry.dart';
+import 'package:aventus_mart/models/product_entry/product_entry.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class WishlistRespository {

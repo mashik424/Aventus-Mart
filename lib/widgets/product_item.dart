@@ -14,18 +14,23 @@ import 'package:gap/gap.dart';
 class ProductItem extends StatelessWidget {
   const ProductItem({
     required this.product,
+    this.onTap,
     super.key,
   });
 
   final Product product;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.pushNamed(
-        routes.productDetails,
-        arguments: product,
-      ),
+      onTap: () {
+        onTap?.call();
+        context.pushNamed(
+          routes.productDetails,
+          arguments: product,
+        );
+      },
       child: Card(
         margin: EdgeInsets.zero,
         elevation: 0.5,

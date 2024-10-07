@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:aventus_mart/models/failure/failure.dart';
 import 'package:aventus_mart/models/product/product.dart';
-import 'package:aventus_mart/models/wishlist_entry/wishlist_entry.dart';
+import 'package:aventus_mart/models/product_entry/product_entry.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CartRepository {
@@ -72,7 +72,16 @@ class CartRepository {
     });
   }
 
-  Future<void> removeFromWishlist(String id) async {
+  Future<void> removeFromCart(String id) async {
     await _collection.doc(id).delete();
+  }
+
+  Future<void> clearCart(String userId) async {
+    final querySnapshot =
+        await _collection.where('user_id', isEqualTo: userId).get();
+
+    for (final doc in querySnapshot.docs) {
+      await doc.reference.delete();
+    }
   }
 }

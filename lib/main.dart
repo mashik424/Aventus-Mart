@@ -2,8 +2,11 @@ import 'package:aventus_mart/blocs/auth_state/auth_state_cubit.dart';
 import 'package:aventus_mart/blocs/cart_add/cart_add_bloc.dart';
 import 'package:aventus_mart/blocs/cart_fetch/cart_fetch_bloc.dart';
 import 'package:aventus_mart/blocs/cart_remove/cart_remove_bloc.dart';
+import 'package:aventus_mart/blocs/clear_cart/clear_cart_bloc.dart';
 import 'package:aventus_mart/blocs/create_account/create_account_bloc.dart';
 import 'package:aventus_mart/blocs/fetch_products/fetch_products_bloc.dart';
+import 'package:aventus_mart/blocs/order_create/order_create_bloc.dart';
+import 'package:aventus_mart/blocs/orders_fetch/orders_fetch_bloc.dart';
 import 'package:aventus_mart/blocs/sign_in/sign_in_bloc.dart';
 import 'package:aventus_mart/blocs/wishlist_add/wishlist_add_bloc.dart';
 import 'package:aventus_mart/blocs/wishlist_fetch/wishlist_fetch_bloc.dart';
@@ -12,6 +15,7 @@ import 'package:aventus_mart/di/injection_container.dart' as di;
 import 'package:aventus_mart/firebase_options.dart';
 import 'package:aventus_mart/repositories/auth_repository.dart';
 import 'package:aventus_mart/repositories/cart_repository.dart';
+import 'package:aventus_mart/repositories/orders_repository.dart';
 import 'package:aventus_mart/repositories/products_repository.dart';
 import 'package:aventus_mart/repositories/wishlist_respository.dart';
 import 'package:aventus_mart/routes/routes.dart';
@@ -61,7 +65,8 @@ class MyApp extends StatelessWidget {
           create: (context) => WishlistRemoveBloc(
             di.sl<WishlistRespository>(),
           ),
-        ),BlocProvider<CartAddBloc>(
+        ),
+        BlocProvider<CartAddBloc>(
           create: (context) => CartAddBloc(
             di.sl<CartRepository>(),
           ),
@@ -74,6 +79,21 @@ class MyApp extends StatelessWidget {
         BlocProvider<CartRemoveBloc>(
           create: (context) => CartRemoveBloc(
             di.sl<CartRepository>(),
+          ),
+        ),
+        BlocProvider<ClearCartBloc>(
+          create: (context) => ClearCartBloc(
+            di.sl<CartRepository>(),
+          ),
+        ),
+        BlocProvider<OrdersFetchBloc>(
+          create: (context) => OrdersFetchBloc(
+            di.sl<OrdersRepository>(),
+          ),
+        ),
+        BlocProvider<OrderCreateBloc>(
+          create: (context) => OrderCreateBloc(
+            di.sl<OrdersRepository>(),
           ),
         ),
       ],

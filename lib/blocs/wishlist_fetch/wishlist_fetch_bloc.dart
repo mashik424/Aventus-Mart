@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:aventus_mart/models/failure/failure.dart';
-import 'package:aventus_mart/models/wishlist_entry/wishlist_entry.dart';
+import 'package:aventus_mart/models/product_entry/product_entry.dart';
 import 'package:aventus_mart/repositories/wishlist_respository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,6 +30,7 @@ class WishlistFetchBloc extends Bloc<WishlistFetchEvent, WishlistFetchState> {
     emit(const FetchingWishlist());
     if (FirebaseAuth.instance.currentUser == null) {
       emit(WishlistFetchFailed(Failure('Found no authenticated user')));
+      return;
     }
     try {
       final list = await _respository.fetchWishlist(

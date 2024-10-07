@@ -1,5 +1,6 @@
 import 'package:aventus_mart/blocs/auth_state/auth_state_cubit.dart';
 import 'package:aventus_mart/blocs/cart_fetch/cart_fetch_bloc.dart';
+import 'package:aventus_mart/blocs/orders_fetch/orders_fetch_bloc.dart';
 import 'package:aventus_mart/blocs/wishlist_fetch/wishlist_fetch_bloc.dart';
 import 'package:aventus_mart/routes/routes.dart' as routes;
 import 'package:aventus_mart/screens/home/tabs/account.dart';
@@ -26,11 +27,16 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     context.read<WishlistFetchBloc>().add(const FetchWishlist());
     context.read<CartFetchBloc>().add(const FetchCart());
+    context.read<OrdersFetchBloc>().add(const FetchOrders());
     super.initState();
   }
 
   void _onNavBarTap(int value) {
     setState(() => currentIndex = value);
+
+    if (value > 0) {
+      FocusScope.of(context).unfocus();
+    }
 
     _pageController.animateToPage(
       value,

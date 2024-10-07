@@ -29,6 +29,7 @@ extension ContextExt on BuildContext {
     required String message,
     BannerMode mode = BannerMode.info,
   }) async {
+    ScaffoldMessenger.maybeOf(this)?.clearSnackBars();
     ScaffoldMessenger.of(this).showSnackBar(
       SnackBar(
         backgroundColor: switch (mode) {

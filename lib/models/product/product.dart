@@ -4,6 +4,35 @@ import 'package:aventus_mart/models/product/review.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
+extension ProductListExt on List<Product> {
+  double get total {
+    var value = 0.0;
+    for (final item in this) {
+      value += item.price ?? 0;
+    }
+
+    return value;
+  }
+
+  double get totalDiscount {
+    var value = 0.0;
+    for (final item in this) {
+      value += (item.price ?? 0) - item.sellingPrice;
+    }
+
+    return value;
+  }
+
+  double get payable {
+    var value = 0.0;
+    for (final item in this) {
+      value += item.sellingPrice;
+    }
+
+    return value;
+  }
+}
+
 @immutable
 class Product {
   const Product({

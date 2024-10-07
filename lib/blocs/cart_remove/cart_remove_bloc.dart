@@ -20,7 +20,7 @@ class CartRemoveBloc extends Bloc<CartRemoveEvent, CartRemoveState> {
   ) async {
     emit(const RemovingFromCart());
     try {
-      await _respository.removeFromWishlist(event.id);
+      await _respository.removeFromCart(event.id);
       emit(const RemovedFromCart());
     } catch (e) {
       emit(CartRemoveFailed(Failure(e.toString())));
